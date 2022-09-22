@@ -1,0 +1,11 @@
+--- a/src/login/org.freedesktop.login1.service.in
++++ b/src/login/org.freedesktop.login1.service.in
+@@ -7,5 +7,7 @@
+ 
+ [D-BUS Service]
+ Name=org.freedesktop.login1
+-Exec=@rootlibexecdir@/elogind --daemon
++# By default, Dbus activation of elogind is disabled. The daemon is started via an init script.
++# Exec=@rootlibexecdir@/elogind --daemon
++Exec=/bin/true
+ User=root

@@ -1,0 +1,111 @@
+Source: elogind
+Section: admin
+Priority: optional
+Maintainer: Debian Ecosystem Init Diversity Team <debian-init-diversity@chiark.greenend.org.uk>
+Uploaders: Mark Hindley <mark@hindley.org.uk>,
+           Ian Jackson <ijackson@chiark.greenend.org.uk>
+Standards-Version: 4.5.1
+Vcs-Git: https://git.devuan.org/devuan/elogind.git -b debian
+Vcs-Browser: https://git.devuan.org/devuan/elogind/tree/debian
+Homepage: https://github.com/elogind/elogind
+Rules-Requires-Root: no
+Build-Depends: debhelper-compat (= 12),
+               dh-exec (>=0.3),
+               pkg-config,
+               docbook-xsl,
+               meson,
+               gperf (>= 3.1),
+               gtk-doc-tools,
+               python3-lxml,
+               libcap-dev,
+               libudev-dev,
+               libmount-dev (>= 2.27.1),
+               libseccomp-dev (>= 2.3.1) [amd64 arm64 armel armhf i386 mips mipsel mips64 mips64el x32 powerpc ppc64 ppc64el s390x],
+               libblkid-dev (>= 2.24),
+               libpam0g-dev (>= 1.1.2),
+               libacl1-dev,
+               libselinux1-dev,
+               libglib2.0-dev,
+               dbus (>= 1.9.14)
+
+Package: elogind
+Section: admin
+Priority: optional
+Architecture: linux-any
+Multi-Arch: foreign
+Pre-Depends: debconf, ${misc:Pre-Depends}
+Depends: ${shlibs:Depends},
+         ${misc:Depends},
+         libudev1,
+         libelogind0 (= ${binary:Version}),
+         lsb-base (>= 3.1),
+         dbus (>= 1.9.14)
+Recommends: libpam-elogind, policykit-1
+Conflicts: systemd
+Description: user, seat and session management daemon
+ elogind is a session management daemon extracted from systemd project's
+ "logind"
+
+Package: libelogind0
+Section: libs
+Priority: optional
+Architecture: linux-any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${shlibs:Depends},
+         ${misc:Depends}
+Provides: libsystemd0 (= ${source:Upstream-Version})
+Replaces: libsystemd0
+Conflicts: libsystemd0, systemd
+Description: user, seat and session management library
+ This library provides runtime access to elogind session management.
+ .
+ The library is ABI compatible with libsystemd0 and provides the necessary
+ symlinks to allow binaries linked against libsystemd0 to work with
+ libelogind0. For full details of the compatibility see README.Debian.
+
+Package: libelogind-dev
+Section: libdevel
+Priority: optional
+Architecture: linux-any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${shlibs:Depends},
+         ${misc:Depends},
+         libelogind0 (= ${binary:Version})
+Suggests: libelogind-dev-doc
+Description: user, seat and session management library (development files)
+ This package contains the files needed for developing applications that use
+ libelogind
+
+Package: libelogind-dev-doc
+Section: doc
+Priority: optional
+Architecture: all
+Multi-Arch: foreign
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${shlibs:Depends},
+         ${misc:Depends}
+Recommends: libelogind-dev (= ${binary:Version})
+Replaces: libelogind-dev (<< 239.1+20181115-1)
+Breaks: libelogind-dev (<< 239.1+20181115-1)
+Conflicts: libsystemd-dev
+Description: user, seat and session management library (development documentation files)
+ This package contains the documentation related to developing applications that
+ use libelogind
+
+Package: libpam-elogind
+Section: admin
+Priority: optional
+Architecture: linux-any
+Multi-Arch: same
+Pre-Depends: ${misc:Pre-Depends}
+Depends: ${shlibs:Depends},
+         ${misc:Depends},
+         elogind (= ${binary:Version}),
+         libpam-runtime
+Provides: logind (= ${binary:Version})
+Conflicts: logind, libpam-ck-connector
+Replaces: logind
+Description: elogind PAM module
+ Plugable Authentication Module to register a session with elogind

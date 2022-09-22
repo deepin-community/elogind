@@ -1,0 +1,2 @@
+#! /usr/bin/dh-exec
+lib/${DEB_HOST_MULTIARCH}/libelogind.so.0 lib/${DEB_HOST_MULTIARCH}/libsystemd.so.0

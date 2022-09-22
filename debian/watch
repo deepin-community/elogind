@@ -1,0 +1,10 @@
+# watch control file for uscan
+# See uscan(1) for format
+
+version=3
+
+# For GitHub projects you can use the tags or releases page.  Since the archive
+# URLs use only the version as the name, it is recommended to use a
+# filenamemangle to adjust the name of the downloaded file:
+opts="filenamemangle=s/(?:.*)?v?(\d[\d\.]*)\.tar\.gz/elogind-$1.tar.gz/, dversionmangle=s/\+nosubmodule//"
+ https://github.com/elogind/elogind/tags (?:.*/)?v?(\d[\d\.]*)\.tar\.gz

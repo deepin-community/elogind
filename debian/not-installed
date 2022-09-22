@@ -1,0 +1,7 @@
+usr/share/doc/elogind/LICENSE.GPL2
+usr/share/doc/elogind/LICENSE.LGPL2.1
+usr/share/factory/
+# Included in udev
+lib/udev/rules.d/70-power-switch.rules
+# Replaced with file from extras/pam.d
+etc/pam.d/elogind-user

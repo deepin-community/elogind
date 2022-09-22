@@ -1,0 +1,21 @@
+libelogind0/libsystemd0 ABI compatibility
+=========================================
+
+libelogind0 is binary compatible with libsystemd0 and includes the necessary
+symlinks so that packages compiled with libsystemd-dev can use libelogind0
+without recomplilation.
+
+The sd-login(3), sd-bus(3) and sd-id128(3) APIs are implemented in full,
+sd-daemon(3) is also implemented in full, although sd_is_mq() always returns 0
+as POSIX message queues are unsupported, sd-journal(3) is only implemented by
+redirecting sd_journal_print* and sd_journal_send* calls to syslog(3) with
+other functions returning -ENOSYS and sd-hwdb(3) contains stubs returning
+-ENOSYS.
+
+Note that this runtime binary compatibility conflicts with satisfying the build
+dependency of packages requiring libsystemd-dev. If you need to compile packages
+against libsystemd-dev on a system with libelogind0 installed you will need to
+use a build chroot. Suitable tools to achieve this include pbuilder(8),
+cowbuilder(8) and sbuild(1).
+
+ -- Mark Hindley <mark@hindley.org.uk>, Sat, 20 Jun 2020 10:44:02 +0100
